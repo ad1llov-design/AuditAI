@@ -11,45 +11,55 @@
   },
   "hero": {
     "badge": "AI-Powered Marketing Intelligence",
-    "title": "Transform Your Marketing with AI-Driven Audit",
-    "subtitle": "Get comprehensive marketing analysis, revenue forecasting, and actionable growth strategies powered by artificial intelligence.",
+    "title": "Stop Losing Customers and Money on Marketing",
+    "subtitle": "Instantly identify budget leaks, hidden losses, and growth opportunities with our free AI audit.",
     "cta": "Start Free Audit",
-    "ctaSecondary": "View Pricing"
+    "ctaSecondary": "Learn More"
   },
   "features": {
-    "title": "Why Choose Our Platform",
-    "subtitle": "Everything you need to optimize your marketing performance",
+    "title": "Why Choose Us",
+    "subtitle": "We don’t just show numbers, we make them work for you",
     "items": [
       {
-        "title": "Smart Audit",
-        "description": "AI-powered analysis of your marketing channels, budget allocation, and conversion funnels."
+        "title": "Deep Analysis",
+        "description": "AI scans every stage of your funnel and finds critical errors."
       },
       {
-        "title": "Revenue Forecast",
-        "description": "Accurate revenue predictions based on your current metrics and market trends."
+        "title": "Loss Calculation",
+        "description": "Find out exactly how much money you are losing monthly due to inefficient marketing."
       },
       {
         "title": "Growth Strategy",
-        "description": "Personalized actionable recommendations to maximize your marketing ROI."
+        "description": "Get a step-by-step action plan to double your profits."
       },
       {
-        "title": "Risk Analysis",
-        "description": "Identify and mitigate potential risks in your marketing and sales pipelines."
+        "title": "Instant Results",
+        "description": "Full report and recommendations in just 2 minutes."
       }
     ]
   },
   "social": {
-    "title": "Trusted by 500+ Companies",
+    "title": "Trusted by 50+ Companies",
     "stats": [
-      { "value": "500+", "label": "Companies" },
-      { "value": "2.5x", "label": "Avg. ROI Increase" },
-      { "value": "98%", "label": "Satisfaction" },
-      { "value": "$12M+", "label": "Revenue Optimized" }
+      { "value": "50+", "label": "Companies" },
+      { "value": "10x", "label": "Avg. ROI Increase" },
+      { "value": "100%", "label": "Satisfaction" },
+      { "value": "$50M+", "label": "Revenue Optimized" }
     ]
   },
   "audit": {
-    "title": "Marketing Audit",
-    "subtitle": "Answer 9 questions to get your personalized AI analysis",
+    "title": "Free Marketing Audit",
+    "subtitle": "Answer 9 questions to see where you're losing money",
+    "preAudit": {
+      "title": "Why do you need this audit?",
+      "items": [
+        "Identify weak spots in your sales funnel",
+        "Find out how much money you are losing right now",
+        "Get a ready-made plan to increase profits",
+        "Compare your metrics with market leaders"
+      ],
+      "startBtn": "Start Analysis"
+    },
     "next": "Next",
     "prev": "Back",
     "submit": "Get Analysis",
@@ -94,94 +104,99 @@
       }
     },
     "results": {
-      "title": "Your Marketing Audit Report",
-      "funnel": "Marketing Funnel",
+      "title": "Your Audit Report",
+      "funnel": "Your Marketing Funnel",
       "metrics": {
         "leads": "Required Leads",
         "clients": "Target Clients",
         "budget": "Estimated Budget",
-        "losses": "Potential Losses"
+        "losses": "YOU ARE LOSING MONTHLY"
       },
       "ai": {
-        "title": "AI Analysis & Recommendations",
+        "title": "AI Analysis: Critical Issues",
         "riskLevel": "Risk Level",
-        "recommendations": "Recommendations",
-        "strategy": "Growth Strategy",
-        "loading": "Analyzing your data..."
+        "recommendations": "Urgent Fixes Needed",
+        "strategy": "Growth Strategy with Us",
+        "loading": "Analyzing your losses..."
       },
       "restart": "Start New Audit",
-      "upgrade": "Upgrade for Full Report"
+      "upgrade": "Get Full Strategy",
+      "cta": {
+        "title": "Stop Losing Profit!",
+        "text": "Our experts can help you implement these changes and increase revenue by 30% in the first month.",
+        "button": "Book Implementation"
+      }
     }
   },
   "pricing": {
-    "title": "Simple, Transparent Pricing",
-    "subtitle": "Choose the plan that fits your business needs",
+    "title": "Invest in Your Business Growth",
+    "subtitle": "Our services pay for themselves in the first month",
     "monthly": "Monthly",
     "yearly": "Yearly",
     "save": "Save 20%",
-    "popular": "Most Popular",
+    "popular": "Best Value",
     "currentPlan": "Current Plan",
     "selectPlan": "Select Plan",
     "perMonth": "/mo",
-    "features": "Features",
+    "features": "What you get",
     "plans": {
       "free": {
-        "name": "Free",
+        "name": "Starter",
         "price": "0",
         "priceYearly": "0",
-        "description": "Get started with basic audit",
+        "description": "Try for free",
         "features": [
           "1 audit per month",
           "Basic metrics",
-          "Email report",
+          "Brief report",
           "Community support"
         ]
       },
       "pro": {
-        "name": "Pro",
-        "price": "29",
-        "priceYearly": "23",
-        "description": "For growing businesses",
+        "name": "Growth",
+        "price": "49",
+        "priceYearly": "39",
+        "description": "For small businesses",
         "features": [
           "10 audits per month",
-          "AI recommendations",
-          "Advanced metrics",
-          "Funnel visualization",
-          "Priority support"
+          "Detailed loss calculation",
+          "Fix recommendations",
+          "Priority support",
+          "Knowledge base access"
         ]
       },
       "business": {
-        "name": "Business",
-        "price": "79",
-        "priceYearly": "63",
-        "description": "For scaling teams",
+        "name": "Scale",
+        "price": "149",
+        "priceYearly": "119",
+        "description": "For active growth",
         "features": [
           "Unlimited audits",
-          "Full AI analysis",
-          "Save & export reports",
-          "Team collaboration",
+          "Full growth strategy",
+          "Personal review",
+          "Export reports",
           "API access",
-          "Dedicated support"
+          "Personal manager"
         ]
       },
       "enterprise": {
         "name": "Enterprise",
         "price": "Custom",
         "priceYearly": "Custom",
-        "description": "For large organizations",
+        "description": "Custom solutions",
         "features": [
-          "Everything in Business",
-          "Custom integrations",
-          "White-label reports",
+          "Everything in Scale",
+          "Turnkey implementation",
+          "Team training",
           "SLA guarantee",
-          "Personal account manager",
+          "Dedicated team",
           "On-premise deployment"
         ]
       }
     }
   },
   "footer": {
-    "description": "AI-powered marketing audit and revenue optimization platform for modern businesses.",
+    "description": "AI-powered marketing audit and revenue optimization platform.",
     "product": "Product",
     "company": "Company",
     "legal": "Legal",
@@ -194,15 +209,15 @@
   },
   "roles": {
     "loginAs": "Switch Role",
-    "user": "Free User",
-    "pro": "Pro User",
-    "business": "Business User",
-    "enterprise": "Enterprise User",
+    "user": "Starter",
+    "pro": "Growth",
+    "business": "Scale",
+    "enterprise": "Enterprise",
     "admin": "Admin"
   },
   "restrictions": {
-    "aiLocked": "AI analysis is available on Pro plan and above",
-    "saveLocked": "Saving reports is available on Business plan and above",
-    "analyticsLocked": "Advanced analytics is available on Business plan and above"
+    "aiLocked": "Detailed analysis available on Growth plan",
+    "saveLocked": "Saving reports available on Scale plan",
+    "analyticsLocked": "Advanced analytics available on Scale plan"
   }
 }

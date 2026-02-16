@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { AuditData } from "@/lib/calculations";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/MotionWrapper";
 
 interface AuditFormProps {
   onSubmit: (data: AuditData) => void;
@@ -11,6 +12,7 @@ interface AuditFormProps {
 
 export function AuditForm({ onSubmit }: AuditFormProps) {
   const t = useTranslations("audit");
+  const [started, setStarted] = useState(false);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<number[]>(Array(9).fill(-1));
 
@@ -20,6 +22,12 @@ export function AuditForm({ onSubmit }: AuditFormProps) {
   const currentQuestion = t.raw(`questions.${questionKeys[step]}`) as {
     title: string;
     options: string[];
+  };
+
+  const preAudit = t.raw("preAudit") as {
+    title: string;
+    items: string[];
+    startBtn: string;
   };
 
   const selectOption = (optionIndex: number) => {
@@ -44,6 +52,49 @@ export function AuditForm({ onSubmit }: AuditFormProps) {
     };
     onSubmit(data);
   };
+
+  if (!started) {
+    return (
+      <div className="max-w-3xl mx-auto">
+        <FadeIn className="bg-card border border-border rounded-2xl p-8 sm:p-12 shadow-lg text-center">
+          <div className="mb-8">
+            <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-primary">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M2 12h5l3 5 5-11 4 7h3" />
+              </svg>
+            </div>
+            <h2 className="font-display text-3xl font-bold text-foreground mb-4">
+              {preAudit.title}
+            </h2>
+          </div>
+
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 text-left">
+            {preAudit.items.map((item, i) => (
+              <StaggerItem key={i}>
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-secondary/50">
+                  <div className="w-6 h-6 rounded-full bg-success/20 text-success flex items-center justify-center shrink-0 mt-0.5">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                  <span className="text-sm font-medium text-foreground">{item}</span>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+
+          <button
+            onClick={() => setStarted(true)}
+            className="w-full sm:w-auto px-10 py-4 rounded-xl bg-primary text-primary-foreground
+                       font-bold text-lg shadow-lg shadow-primary/25 hover:shadow-xl
+                       hover:shadow-primary/30 transition-all hover:-translate-y-1"
+          >
+            {preAudit.startBtn}
+          </button>
+        </FadeIn>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-2xl mx-auto">

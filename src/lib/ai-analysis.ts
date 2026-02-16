@@ -8,116 +8,151 @@ export interface AIAnalysisResult {
   summary: string;
 }
 
-const nicheNames = ["E-commerce", "SaaS/IT", "Services", "Education", "Healthcare", "Other"];
-const adPlatformNames = ["Google Ads", "Facebook/Instagram", "TikTok", "LinkedIn", "None", "Multiple"];
+const translations = {
+  en: {
+    niche: ["E-commerce", "SaaS/IT", "Services", "Education", "Healthcare", "Other"],
+    platform: ["Google Ads", "Facebook/Instagram", "TikTok", "LinkedIn", "None", "Multiple"],
+    rec: {
+      crm: "CRITICAL: You are losing 30% of leads due to lack of CRM. Implement HubSpot/Salesforce immediately.",
+      sales: "URGENT: Your sales process is unstructured. You are burning ad budget without closing deals.",
+      social: "Missed Opportunity: Your competitors dominate social media. You are invisible to 60% of your audience.",
+      ads: "Inefficient Spend: You are running ads blindly. Stop wasting budget until you have a strategy.",
+      cro: "Money Leak: Your conversion rate is too low. You are paying for traffic that leaves immediately.",
+      loss: "FINANCIAL ALERT: You are losing ${loss} monthly. Yearly that's ${yearlyLoss}. Fix this now.",
+      scale: "Ready to Scale: But you need automation to handle 2x volume without chaos.",
+    },
+    strategy: {
+      p1: "Month 1: STOP THE BLEEDING. Audit ad accounts, fix landing page, implement CRM.",
+      p2: "Month 2: AGGRESSIVE GROWTH. Launch high-conversion campaigns, target CPA reduction by 20%.",
+      p3: "Month 3: SCALE & DOMINATE. Double ad spend on winning channels, introduce retention sequences.",
+      p4: "Month 4+: AUTOMATION. Remove yourself from operations, let AI handle 80% of routine.",
+    },
+    summary: "Audit for {niche} niche. Target: {leads} leads/mo. ROI Projection: {roi}x. CONCLUSION: Your current setup is burning cash. You need immediate intervention to stop losses and start growing.",
+  },
+  ru: {
+    niche: ["E-commerce", "SaaS / IT", "Услуги", "Образование", "Здравоохранение", "Другое"],
+    platform: ["Google Ads", "Facebook / Instagram", "TikTok", "LinkedIn", "Нет", "Несколько"],
+    rec: {
+      crm: "КРИТИЧНО: Вы теряете 30% заявок из-за отсутствия CRM. Срочно внедрите систему учета.",
+      sales: "СРОЧНО: Ваш процесс продаж хаотичен. Вы сливаете рекламный бюджет впустую.",
+      social: "Упущенная выгода: Конкуренты забирают ваших клиентов в соцсетях. Вас не видят 60% аудитории.",
+      ads: "Слив бюджета: Реклама работает неэффективно. Остановите траты до разработки стратегии.",
+      cro: "Утечка денег: Конверсия сайта ниже нормы. Вы платите за трафик, который уходит.",
+      loss: "ФИНАНСОВАЯ ТРЕВОГА: Вы теряете ${loss} ежемесячно. В год это ${yearlyLoss}. Нужно исправлять немедленно.",
+      scale: "Готовы к росту: Но без автоматизации масштабирование убьет процессы.",
+    },
+    strategy: {
+      p1: "Месяц 1: ОСТАНОВИТЬ ПОТЕРИ. Аудит рекламы, правка лендинга, внедрение CRM.",
+      p2: "Месяц 2: АГРЕССИВНЫЙ РОСТ. Запуск кампаний с высокой конверсией, снижение стоимости клиента на 20%.",
+      p3: "Месяц 3: МАСШТАБИРОВАНИЕ. Удвоение бюджета на лучшие каналы, внедрение LTV-воронок.",
+      p4: "Месяц 4+: АВТОМАТИЗАЦИЯ. Выход из операционки, AI заберет 80% рутины.",
+    },
+    summary: "Аудит ниши {niche}. Цель: {leads} лидов/мес. Прогноз ROI: {roi}x. ВЫВОД: Ваша текущая система сжигает деньги. Требуется немедленное вмешательство экспертов для остановки потерь.",
+  },
+  kg: {
+    niche: ["E-commerce", "SaaS / IT", "Кызматтар", "Билим берүү", "Саламаттыкты сактоо", "Башка"],
+    platform: ["Google Ads", "Facebook / Instagram", "TikTok", "LinkedIn", "Жок", "Бир нече"],
+    rec: {
+      crm: "КРИТИКАЛЫК: CRM жоктугунан кардарлардын 30% жоготуп жатасыз. Тезинен системаны киргизиңиз.",
+      sales: "ШАШЫЛЫШ: Сиздин сатуу процессиңиз иретсиз. Сиз жарнак бюджетин текке кетирип жатасыз.",
+      social: "Жоготулган мүмкүнчүлүк: Атаандаштар социалдык тармактарда кардарларыңызды тартып алууда.",
+      ads: "Бюджетти коротуу: Жарнак натыйжасыз иштеп жатат. Стратегия түзүлгөнгө чейин чыгымдарды токтотуңуз.",
+      cro: "Акчанын агып кетиши: Сайттын конверсиясы төмөн. Сиз келген трафик үчүн акча төлөп жатасыз, бирок алар кетип калууда.",
+      loss: "ФИНАНСЫЛЫК КООКУНУЧ: Сиз ай сайын ${loss} жоготуп жатасыз. Жылына бул ${yearlyLoss}. Дароо оңдоо керек.",
+      scale: "Өсүүгө даяр: Бирок автоматташтыруусуз масштаброо процесстерди өлтүрөт.",
+    },
+    strategy: {
+      p1: "1-ай: ЖОГОТУУЛАРДЫ ТОКТОТУУ. Жарнак аудити, лендингди оңдоо, CRM киргизүү.",
+      p2: "2-ай: АГРЕССИВДҮҮ ӨСҮҮ. Жогорку конверсиялуу кампанияларды баштоо, кардардын баасын 20% га төмөндөтүү.",
+      p3: "3-ай: МАСШТАБ. Мыкты каналдарга бюджетти эки эсе көбөйтүү, LTV воронкаларын киргизүү.",
+      p4: "4-ай+: АВТОМАТТАШТЫРУУ. Операциялык иштерден чыгуу, AI рутинанын 80% өзүнө алат.",
+    },
+    summary: "Ниша аудити {niche}. Максат: {leads} лид/ай. ROI болжолу: {roi}x. ЖЫЙЫНТЫК: Сиздин учурдагы системаңыз акчаны күйгүзүп жатат. Жоготууларды токтотуу үчүн тезинен эксперттердин кийлигишүүсү керек.",
+  },
+};
 
 export async function generateAIAnalysis(
   data: AuditData,
-  metrics: FunnelMetrics
+  metrics: FunnelMetrics,
+  locale: string = "en"
 ): Promise<AIAnalysisResult> {
   // Simulate AI processing delay
   await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  // Calculate risk score based on inputs
+  // Default to English if locale not found
+  const t = translations[locale as keyof typeof translations] || translations.en;
+
+  // Calculate risk score based on inputs - AGGRESSIVE CALCULATION
   let riskScore = 0;
 
-  // No CRM = +20 risk
-  if (data.hasCRM === 1) riskScore += 20;
-  if (data.hasCRM === 3) riskScore += 10;
+  // Base risk
+  riskScore += 20;
 
-  // No sales team = +15 risk
-  if (data.hasSalesTeam === 1) riskScore += 15;
-  if (data.hasSalesTeam === 3) riskScore += 10;
+  // No CRM = +25 risk (Critical)
+  if (data.hasCRM === 1) riskScore += 25;
+  if (data.hasCRM === 3) riskScore += 15;
+
+  // No sales team = +20 risk
+  if (data.hasSalesTeam === 1) riskScore += 20;
+  if (data.hasSalesTeam === 3) riskScore += 15;
 
   // Poor social media = +15 risk
   if (data.socialMedia >= 2) riskScore += 15;
 
-  // No advertising = +20 risk
-  if (data.adPlatform === 4) riskScore += 20;
+  // No advertising = +25 risk
+  if (data.adPlatform === 4) riskScore += 25;
 
-  // Low conversion = +10 risk
-  if (data.conversionRate <= 1) riskScore += 10;
+  // Low conversion = +20 risk
+  if (data.conversionRate <= 1) riskScore += 20;
+  if (data.conversionRate === 5) riskScore += 25; // Don't know is worse
 
-  // Don't know conversion = +15 risk
-  if (data.conversionRate === 5) riskScore += 15;
+  // Budget inefficiencies
+  if (metrics.estimatedBudget > metrics.targetClients * 50) riskScore += 15;
 
-  // High budget requirement relative to revenue = +10 risk
-  if (metrics.estimatedBudget > metrics.targetClients * 100) riskScore += 10;
+  // Cap at 95
+  riskScore = Math.min(95, riskScore);
 
   const riskLevel: AIAnalysisResult["riskLevel"] =
-    riskScore <= 20 ? "low" : riskScore <= 40 ? "medium" : riskScore <= 60 ? "high" : "critical";
+    riskScore <= 40 ? "medium" : riskScore <= 70 ? "high" : "critical";
 
   // Generate recommendations
   const recommendations: string[] = [];
 
-  if (data.hasCRM >= 1) {
-    recommendations.push(
-      "Implement a CRM system (e.g., HubSpot, Salesforce) to track leads and customer interactions. Expected improvement: 20-30% in lead conversion."
-    );
-  }
-
-  if (data.hasSalesTeam >= 1) {
-    recommendations.push(
-      "Build or strengthen your sales team. A dedicated sales force can improve close rates by 25-40%."
-    );
-  }
-
-  if (data.socialMedia >= 2) {
-    recommendations.push(
-      "Develop a consistent social media strategy. Active presence on 2-3 key platforms can reduce CAC by 15-25%."
-    );
-  }
-
-  if (data.adPlatform === 4) {
-    recommendations.push(
-      `Start with ${nicheNames[data.niche] === "SaaS/IT" ? "Google Ads and LinkedIn" : "Google Ads and Facebook"} for your ${nicheNames[data.niche]} niche.`
-    );
-  }
-
-  if (data.conversionRate <= 1 || data.conversionRate === 5) {
-    recommendations.push(
-      "Focus on conversion rate optimization (CRO). A/B test landing pages, improve CTAs, and streamline the checkout process."
-    );
-  }
+  if (data.hasCRM >= 1) recommendations.push(t.rec.crm);
+  if (data.hasSalesTeam >= 1) recommendations.push(t.rec.sales);
+  if (data.socialMedia >= 2) recommendations.push(t.rec.social);
+  if (data.adPlatform === 4) recommendations.push(t.rec.ads);
+  if (data.conversionRate <= 1 || data.conversionRate === 5) recommendations.push(t.rec.cro);
 
   if (metrics.potentialLosses > 0) {
+    const lossStr = `$${metrics.potentialLosses.toLocaleString()}`;
+    const yearlyLossStr = `$${(metrics.potentialLosses * 12).toLocaleString()}`;
     recommendations.push(
-      `Address identified gaps to potentially save $${metrics.potentialLosses.toLocaleString()}/month in wasted marketing spend.`
+      t.rec.loss.replace("${loss}", lossStr).replace("${yearlyLoss}", yearlyLossStr)
     );
   }
 
   if (recommendations.length === 0) {
-    recommendations.push(
-      "Your marketing foundation is strong. Focus on scaling what works and testing new channels.",
-      "Consider implementing marketing automation to improve efficiency by 15-20%."
-    );
+    recommendations.push(t.rec.scale);
   }
 
   // Generate growth strategy
-  const strategy: string[] = [];
+  const strategy: string[] = [t.strategy.p1, t.strategy.p2, t.strategy.p3, t.strategy.p4];
 
-  strategy.push(
-    `Phase 1 (Month 1-2): Optimize your ${adPlatformNames[data.adPlatform] || "advertising"} campaigns. Target CPA reduction of 15%.`
-  );
-
-  strategy.push(
-    `Phase 2 (Month 2-4): Scale lead generation to ${metrics.requiredLeads} leads/month through multi-channel approach.`
-  );
-
-  strategy.push(
-    `Phase 3 (Month 4-6): Achieve ${metrics.targetClients} clients/month with improved conversion rate of ${(metrics.conversionRate * 1.3).toFixed(1)}%.`
-  );
-
-  strategy.push(
-    "Phase 4 (Month 6+): Implement retention strategies and expand to new market segments for sustainable growth."
-  );
-
-  const summary = `Based on your ${nicheNames[data.niche]} business profile, you need approximately ${metrics.requiredLeads} leads per month to achieve your revenue target. With a projected budget of $${metrics.estimatedBudget.toLocaleString()}, the estimated ROI is ${((metrics.targetClients * (metrics.estimatedBudget / metrics.requiredLeads) * 3) / metrics.estimatedBudget).toFixed(1)}x. ${riskLevel === "low" || riskLevel === "medium" ? "Your risk profile is manageable." : "Immediate action is recommended to address critical gaps."}`;
+  const summary = t.summary
+    .replace("{niche}", t.niche[data.niche] || data.niche.toString())
+    .replace("{leads}", metrics.requiredLeads.toString())
+    .replace(
+      "{roi}",
+      isNaN(metrics.estimatedBudget) || metrics.estimatedBudget === 0 
+        ? "0" 
+        : ((metrics.targetClients * (metrics.estimatedBudget / Math.max(1, metrics.requiredLeads)) * 3) / metrics.estimatedBudget).toFixed(1)
+    );
 
   return {
     riskLevel,
     riskScore,
-    recommendations,
+    recommendations: recommendations.slice(0, 5), // Top 5 critical issues
     strategy,
     summary,
   };

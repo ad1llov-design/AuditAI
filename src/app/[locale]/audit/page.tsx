@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { AuditForm } from "@/components/audit/AuditForm";
 import { AuditResults } from "@/components/audit/AuditResults";
 import { AuditData, calculateFunnel, FunnelMetrics } from "@/lib/calculations";
@@ -11,6 +11,7 @@ import { useUser } from "@/context/UserContext";
 
 export default function AuditPage() {
   const t = useTranslations("audit");
+  const locale = useLocale();
   const { hasAccess } = useUser();
   const [showResults, setShowResults] = useState(false);
   const [metrics, setMetrics] = useState<FunnelMetrics | null>(null);
@@ -25,7 +26,7 @@ export default function AuditPage() {
     if (hasAccess("ai")) {
       setIsAnalyzing(true);
       try {
-        const analysis = await generateAIAnalysis(data, funnelMetrics);
+        const analysis = await generateAIAnalysis(data, funnelMetrics, locale);
         setAiAnalysis(analysis);
       } finally {
         setIsAnalyzing(false);

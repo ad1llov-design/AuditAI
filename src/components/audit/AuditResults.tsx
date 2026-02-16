@@ -71,6 +71,7 @@ export function AuditResults({ metrics, aiAnalysis, isAnalyzing, onRestart }: Au
     {
       key: "losses",
       value: `$${metrics.potentialLosses.toLocaleString()}`,
+      style: "danger", // Special style tag
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="23 18 13.5 8.5 8.5 13.5 1 6" />
@@ -99,26 +100,40 @@ export function AuditResults({ metrics, aiAnalysis, isAnalyzing, onRestart }: Au
 
       {/* Metrics Grid */}
       <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {metricItems.map((item, i) => (
-          <StaggerItem key={item.key}>
-            <Card padding="md" className="text-center">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-3">
-                {item.icon}
-              </div>
-              <motion.p
-                className="text-2xl sm:text-3xl font-bold text-foreground"
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3 + i * 0.1, type: "spring" }}
+        {metricItems.map((item, i) => {
+          const isDanger = item.style === "danger";
+          return (
+            <StaggerItem key={item.key}>
+              <Card
+                padding="md"
+                className={`text-center h-full flex flex-col justify-center ${
+                  isDanger ? "border-danger/50 bg-danger/5 shadow-lg shadow-danger/10" : ""
+                }`}
               >
-                {item.value}
-              </motion.p>
-              <p className="text-xs text-muted-foreground mt-1">
-                {t(`metrics.${item.key}`)}
-              </p>
-            </Card>
-          </StaggerItem>
-        ))}
+                <div
+                  className={`w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-3 ${
+                    isDanger ? "bg-danger/20 text-danger" : "bg-primary/10 text-primary"
+                  }`}
+                >
+                  {item.icon}
+                </div>
+                <motion.p
+                  className={`text-2xl sm:text-3xl font-bold ${
+                    isDanger ? "text-danger" : "text-foreground"
+                  }`}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.3 + i * 0.1, type: "spring" }}
+                >
+                  {item.value}
+                </motion.p>
+                <p className={`text-xs mt-1 ${isDanger ? "text-danger/80 font-semibold" : "text-muted-foreground"}`}>
+                  {t(`metrics.${item.key}`).toUpperCase()}
+                </p>
+              </Card>
+            </StaggerItem>
+          );
+        })}
       </StaggerContainer>
 
       {/* Funnel */}
@@ -155,7 +170,7 @@ export function AuditResults({ metrics, aiAnalysis, isAnalyzing, onRestart }: Au
       {/* AI Analysis */}
       {hasAccess("ai") ? (
         <FadeIn delay={0.5}>
-          <Card padding="lg" className="relative overflow-hidden">
+          <Card padding="lg" className="relative overflow-hidden border-primary/20">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent/10 to-transparent rounded-bl-full" />
             <h3 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -176,17 +191,17 @@ export function AuditResults({ metrics, aiAnalysis, isAnalyzing, onRestart }: Au
             ) : aiAnalysis ? (
               <div className="space-y-6">
                 {/* Summary */}
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm text-foreground leading-relaxed font-medium">
                   {aiAnalysis.summary}
                 </p>
 
                 {/* Risk Level */}
-                <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-foreground">{t("ai.riskLevel")}:</span>
+                <div className="flex items-center gap-3 p-4 rounded-xl bg-secondary/50">
+                  <span className="text-sm font-bold text-foreground">{t("ai.riskLevel")}:</span>
                   <Badge variant={riskColors[aiAnalysis.riskLevel]}>
                     {aiAnalysis.riskLevel.toUpperCase()} ({aiAnalysis.riskScore}/100)
                   </Badge>
-                  <div className="flex-1 h-2 bg-secondary rounded-full overflow-hidden">
+                  <div className="flex-1 h-2 bg-background rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${aiAnalysis.riskScore}%` }}
@@ -196,47 +211,58 @@ export function AuditResults({ metrics, aiAnalysis, isAnalyzing, onRestart }: Au
                   </div>
                 </div>
 
-                {/* Recommendations */}
-                <div>
-                  <h4 className="text-sm font-semibold text-foreground mb-3">
-                    {t("ai.recommendations")}
-                  </h4>
-                  <ul className="space-y-2">
-                    {aiAnalysis.recommendations.map((rec, i) => (
-                      <motion.li
-                        key={i}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.8 + i * 0.1 }}
-                        className="flex items-start gap-2 text-sm text-muted-foreground"
-                      >
-                        <span className="text-primary mt-0.5 shrink-0">→</span>
-                        {rec}
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Recommendations */}
+                  <div>
+                    <h4 className="text-sm font-bold text-danger mb-3 flex items-center gap-2">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                        <line x1="12" y1="9" x2="12" y2="13" />
+                        <line x1="12" y1="17" x2="12.01" y2="17" />
+                      </svg>
+                      {t("ai.recommendations")}
+                    </h4>
+                    <ul className="space-y-2">
+                      {aiAnalysis.recommendations.map((rec, i) => (
+                        <motion.li
+                          key={i}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.8 + i * 0.1 }}
+                          className="flex items-start gap-2 text-sm text-foreground/80 bg-danger/5 p-2 rounded-lg"
+                        >
+                          <span className="text-danger mt-0.5 shrink-0">!</span>
+                          {rec}
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </div>
 
-                {/* Strategy */}
-                <div>
-                  <h4 className="text-sm font-semibold text-foreground mb-3">
-                    {t("ai.strategy")}
-                  </h4>
-                  <div className="space-y-2">
-                    {aiAnalysis.strategy.map((step, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1 + i * 0.1 }}
-                        className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50"
-                      >
-                        <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center shrink-0">
-                          {i + 1}
-                        </span>
-                        <p className="text-sm text-muted-foreground">{step}</p>
-                      </motion.div>
-                    ))}
+                  {/* Strategy */}
+                  <div>
+                    <h4 className="text-sm font-bold text-success mb-3 flex items-center gap-2">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                        <polyline points="17 6 23 6 23 12" />
+                      </svg>
+                      {t("ai.strategy")}
+                    </h4>
+                    <div className="space-y-2">
+                      {aiAnalysis.strategy.map((step, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 1 + i * 0.1 }}
+                          className="flex items-start gap-3 p-2 rounded-lg bg-success/5"
+                        >
+                          <span className="w-5 h-5 rounded-full bg-success/20 text-success text-[10px] font-bold flex items-center justify-center shrink-0">
+                            {i + 1}
+                          </span>
+                          <p className="text-sm text-foreground/80">{step}</p>
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -260,15 +286,30 @@ export function AuditResults({ metrics, aiAnalysis, isAnalyzing, onRestart }: Au
         </FadeIn>
       )}
 
-      {/* Restart */}
-      <FadeIn delay={0.6} className="text-center">
-        <button
-          onClick={onRestart}
-          className="px-6 py-2.5 rounded-xl text-sm font-medium border border-border
-                     text-foreground hover:bg-secondary transition-all"
-        >
-          {t("restart")}
-        </button>
+      {/* Main CTA */}
+      <FadeIn delay={0.8}>
+        <div className="relative bg-foreground rounded-3xl p-8 sm:p-10 text-center overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,255,255,0.1),transparent)]" />
+          <div className="relative z-10">
+            <h3 className="font-display text-2xl sm:text-3xl font-bold text-background mb-4">
+              {t("cta.title")}
+            </h3>
+            <p className="text-background/80 max-w-xl mx-auto mb-8 text-lg">
+              {t("cta.text")}
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-primary text-primary-foreground font-bold hover:shadow-lg hover:shadow-primary/30 transition-all hover:-translate-y-1">
+                {t("cta.button")}
+              </button>
+              <button
+                onClick={onRestart}
+                className="w-full sm:w-auto px-8 py-3.5 rounded-xl border border-background/20 text-background font-medium hover:bg-background/10 transition-all"
+              >
+                {t("restart")}
+              </button>
+            </div>
+          </div>
+        </div>
       </FadeIn>
     </div>
   );
