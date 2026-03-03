@@ -31,7 +31,7 @@ export function generateStaticParams() {
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as "en" | "ru" | "kg")) {
+  if (!routing.locales.includes(locale as "ru" | "uz" | "kg")) {
     notFound();
   }
 

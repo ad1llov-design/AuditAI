@@ -1,0 +1,223 @@
+{
+  "meta": {
+    "title": "AI Marketing & Revenue Audit Platform",
+    "description": "Sun'iy intellektga asoslangan marketing auditi va daromadni optimallashtirish platformasi."
+  },
+  "nav": {
+    "home": "Asosiy",
+    "audit": "Audit",
+    "pricing": "Tariflar",
+    "getStarted": "Boshlash"
+  },
+  "hero": {
+    "badge": "AI marketing tahlili",
+    "title": "Mijozlarni va pulni yo'qotishni to'xtating",
+    "subtitle": "Byudjetingiz qayerga ketayotganini, yashirin yo'qotishlarni va o'sish nuqtalarini bepul AI auditi yordamida aniqlang.",
+    "cta": "Bepul auditni boshlash",
+    "ctaSecondary": "Batafsil"
+  },
+  "features": {
+    "title": "Nega bizni tanlashadi",
+    "subtitle": "Biz shunchaki raqamlarni ko'rsatmaymiz, ularni siz uchun ishlashiga majbur qilamiz",
+    "items": [
+      {
+        "title": "Chuqur tahlil",
+        "description": "AI voronkangizning har bir bosqichini skanerlaydi va xatolarni topadi."
+      },
+      {
+        "title": "Yo'qotishlarni hisoblash",
+        "description": "Samarasiz marketing tufayli oyiga qancha pul yo'qotayotganingizni aniqlang."
+      },
+      {
+        "title": "O'sish strategiyasi",
+        "description": "Daromadni ikki baravar oshirish uchun tayyor qadam-baqadam reja oling."
+      },
+      {
+        "title": "Tezkor natija",
+        "description": "To'liq hisobot va aniq tavsiyalar bor-yo'g'i 2 daqiqada."
+      }
+    ]
+  },
+  "social": {
+    "title": "50+ kompaniyalar ishonchi",
+    "stats": [
+      { "value": "50+", "label": "Kompaniyalar" },
+      { "value": "10x", "label": "ROI o'sishi" },
+      { "value": "100%", "label": "Qoniqish" },
+      { "value": "$50M+", "label": "Optimallashtirilgan" }
+    ]
+  },
+  "audit": {
+    "title": "Bepul Marketing Auditi",
+    "subtitle": "2 daqiqalik testdan o'ting va pulingiz qayerga ketayotganini bilib oling",
+    "preAudit": {
+      "title": "Nega sizga bu audit kerak?",
+      "items": [
+        "Sotuv voronkangizdagi zaif nuqtalarni aniqlang",
+        "Hozir qancha mablag' yo'qotayotganingizni ko'ring",
+        "Daromadni oshirish uchun tayyor reja oling",
+        "Korsatkichlaringizni bozor yetakchilari bilan solishtiring"
+      ],
+      "startBtn": "Tahlilni boshlash"
+    },
+    "next": "Keyingisi",
+    "prev": "Orqaga",
+    "submit": "Tahlilni olish",
+    "step": "Qadam",
+    "of": "/",
+    "questions": {
+      "q1": {
+        "title": "Siz biznes egasimisiz?",
+        "options": ["Ha", "Yo'q", "Hammuassis", "Menejer"]
+      },
+      "q2": {
+        "title": "CRM tizimingiz bormi?",
+        "options": ["Ha", "Yo'q", "Joriy qilishni rejalashtiryapmiz", "Jadvallardan foydalanamiz"]
+      },
+      "q3": {
+        "title": "Sotuv bo'limi bormi?",
+        "options": ["Ha, ajratilgan jamoa", "Yo'q", "Autsorsing", "O'zim sotaman"]
+      },
+      "q4": {
+        "title": "Ijtimoiy tarmoqlar holati?",
+        "options": ["Barcha platformalarda faolmiz", "Bir necha platforma", "Minimal darajada", "Umuman yo'q"]
+      },
+      "q5": {
+        "title": "Sizning sohangiz?",
+        "options": ["E-commerce", "SaaS / IT", "Xizmatlar", "Ta'lim", "Sog'liqni saqlash", "Boshqa"]
+      },
+      "q6": {
+        "title": "Reklama platformasi?",
+        "options": ["Google Ads", "Facebook / Instagram", "TikTok", "LinkedIn", "Yo'q", "Bir nechta"]
+      },
+      "q7": {
+        "title": "Oylik daromad maqsadi?",
+        "options": ["$1K - $5K", "$5K - $20K", "$20K - $50K", "$50K - $100K", "$100K+"]
+      },
+      "q8": {
+        "title": "O'rtacha chek?",
+        "options": ["$50 gacha", "$50 - $200", "$200 - $500", "$500 - $1000", "$1000+"]
+      },
+      "q9": {
+        "title": "Joriy konversiya?",
+        "options": ["1% dan kam", "1% - 3%", "3% - 5%", "5% - 10%", "10% dan yuqori", "Bilmayman"]
+      }
+    },
+    "results": {
+      "title": "Sizning audit hisobotingiz",
+      "funnel": "Sizning marketing voronkangiz",
+      "metrics": {
+        "leads": "Kerakli lidlar",
+        "clients": "Maqsadli mijozlar",
+        "budget": "Taxminiy byudjet",
+        "losses": "OYLIK YO'QOTISHLAR"
+      },
+      "ai": {
+        "title": "AI Tahlil: Kritik Muammolar",
+        "riskLevel": "Xavf darajasi",
+        "recommendations": "Zudlik bilan to'g'irlash kerak",
+        "strategy": "Biz bilan o'sish strategiyasi",
+        "loading": "Yo'qotishlar tahlil qilinmoqda..."
+      },
+      "restart": "Yangi audit",
+      "upgrade": "To'liq strategiyani olish",
+      "cta": {
+        "title": "Foydani yo'qotishni to'xtating!",
+        "text": "Bizning ekspertlarimiz sizga ushbu o'zgarishlarni joriy etishda va birinchi oydayoq daromadni 30% ga oshirishda yordam beradi.",
+        "button": "Joriy etishga buyurtma berish"
+      }
+    }
+  },
+  "pricing": {
+    "title": "Biznesingiz o'sishiga sarmoya kiriting",
+    "subtitle": "Bizning xizmatlarimiz birinchi oydayoq o'zini oqlaydi",
+    "monthly": "Oylik",
+    "yearly": "Yillik",
+    "save": "20% tejang",
+    "popular": "Eng ommabop",
+    "currentPlan": "Joriy reja",
+    "selectPlan": "Rejani tanlash",
+    "perMonth": "/oy",
+    "features": "Nimalarga ega bo'lasiz",
+    "plans": {
+      "free": {
+        "name": "Boshlang'ich",
+        "price": "0",
+        "priceYearly": "0",
+        "description": "Bepul sinab ko'ring",
+        "features": [
+          "Oyiga 1 marta audit",
+          "Asosiy ko'rsatkichlar",
+          "Qisqacha hisobot",
+          "Hamjamiyat yordami"
+        ]
+      },
+      "pro": {
+        "name": "O'sish",
+        "price": "49",
+        "priceYearly": "39",
+        "description": "Kichik biznes uchun",
+        "features": [
+          "Oyiga 10 ta audit",
+          "Yo'qotishlarni aniq hisoblash",
+          "Tuzatish bo'yicha tavsiyalar",
+          "Ustuvor yordam",
+          "Bilimlar bazasiga kirish"
+        ]
+      },
+      "business": {
+        "name": "Masshtab",
+        "price": "149",
+        "priceYearly": "119",
+        "description": "Faol o'sish uchun",
+        "features": [
+          "Cheksiz auditlar",
+          "To'liq o'sish strategiyasi",
+          "Shaxsiy tahlilchi",
+          "Hisobotlarni eksport qilish",
+          "API ruxsati",
+          "Shaxsiy menejer"
+        ]
+      },
+      "enterprise": {
+        "name": "Korporatsiya",
+        "price": "Shaxsiy",
+        "priceYearly": "Shaxsiy",
+        "description": "Shaxsiy yechimlar",
+        "features": [
+          "Masshtab tarifidagi barcha narsalar",
+          "Tayyor yechimlarni joriy etish",
+          "Jamoani o'qitish",
+          "SLA kafolati",
+          "Ajratilgan jamoa",
+          "On-premise o'rnatish"
+        ]
+      }
+    }
+  },
+  "footer": {
+    "description": "Sun'iy intellekt asosidagi marketing auditi va daromadni optimallashtirish platformasi.",
+    "product": "Mahsulot",
+    "company": "Kompaniya",
+    "legal": "Huquqiy ma'lumot",
+    "about": "Biz haqimizda",
+    "blog": "Blog",
+    "careers": "Karyera",
+    "privacy": "Maxfiylik siyosati",
+    "terms": "Foydalanish shartlari",
+    "rights": "Barcha huquqlar himoyalangan."
+  },
+  "roles": {
+    "loginAs": "Rolni almashtirish",
+    "user": "Boshlash",
+    "pro": "O'sish",
+    "business": "Masshtab",
+    "enterprise": "Korporatsiya",
+    "admin": "Admin"
+  },
+  "restrictions": {
+    "aiLocked": "Batafsil tahlil O'sish tarifida mavjud",
+    "saveLocked": "Hisobotlarni saqlash Masshtab tarifida mavjud",
+    "analyticsLocked": "Kengaytirilgan analitika Masshtab tarifida mavjud"
+  }
+}

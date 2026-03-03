@@ -49,6 +49,26 @@ const translations = {
     },
     summary: "Аудит ниши {niche}. Цель: {leads} лидов/мес. Прогноз ROI: {roi}x. ВЫВОД: Ваша текущая система сжигает деньги. Требуется немедленное вмешательство экспертов для остановки потерь.",
   },
+  uz: {
+    niche: ["E-commerce", "SaaS / IT", "Xizmatlar", "Ta'lim", "Sog'liqni saqlash", "Boshqa"],
+    platform: ["Google Ads", "Facebook / Instagram", "TikTok", "LinkedIn", "Yo'q", "Bir nechta"],
+    rec: {
+      crm: "KRITIK: CRM yo'qligi sababli lidlarning 30% ni yo'qotyapsiz. Zudlik bilan CRM tizimini joriy eting.",
+      sales: "SHOSHILINCH: Sotuv jarayoningiz tartibsiz. Reklama byudjetini befoyda sarflamoqdasiz.",
+      social: "O'tkazilgan imkoniyat: Raqobatchilar ijtimoiy tarmoqlarda auditoriyangizni tortib olmoqda.",
+      ads: "Noto'g'ri xarajat: Reklama samarasiz ishlayapti. Strategiya ishlab chiqilmaguncha xarajatlarni to'xtating.",
+      cro: "Pul oqib ketmoqda: Konversiya darajangiz pastligi sababli, sarflagan trafikingiz befoyda ketmoqda.",
+      loss: "MOLIYAVIY OGOHLANTIRISH: ${loss} oylik yo'qotmoqdasiz. Yillik bu ${yearlyLoss}. Zudlik bilan tuzating.",
+      scale: "O'sishga tayyor: Ammo avtomatLashtiruvsiz masshtablash jarayonlarni barbod qiladi.",
+    },
+    strategy: {
+      p1: "1-oy: YO'QOTISHLARNI TO'XTATING. Reklama auditi, landing sahifani tuzating, CRM joriy eting.",
+      p2: "2-oy: AGRESSIV O'SISH. Yuqori konversiyali kampaniyalar, CPA ni 20% ga kamaytirish.",
+      p3: "3-oy: MASSHTAB. Eng yaxshi kanallarga byudjetni ikki baravar oshiring, LTV voronkalarini joriy eting.",
+      p4: "4-oy+: AVTOMATLASHTIRISH. Operativ ishlarda o'zingizni bo'shating, AI 80% rutinani zimmasiga oladi.",
+    },
+    summary: "{niche} sohasi auditi. Maqsad: {leads} lid/oy. ROI prognozi: {roi}x. XULOSA: Joriy tizimingiz pulni yondiryapti. Yo'qotishlarni to'xtatish uchun zudlik bilan ekspertlar aralashuvi kerak.",
+  },
   kg: {
     niche: ["E-commerce", "SaaS / IT", "Кызматтар", "Билим берүү", "Саламаттыкты сактоо", "Башка"],
     platform: ["Google Ads", "Facebook / Instagram", "TikTok", "LinkedIn", "Жок", "Бир нече"],
@@ -74,56 +94,33 @@ const translations = {
 export async function generateAIAnalysis(
   data: AuditData,
   metrics: FunnelMetrics,
-  locale: string = "en"
+  locale: string = "ru"
 ): Promise<AIAnalysisResult> {
-  // Simulate AI processing delay
   await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  // Default to English if locale not found
-  const t = translations[locale as keyof typeof translations] || translations.en;
+  const t = translations[locale as keyof typeof translations] || translations.ru;
 
-  // Calculate risk score based on inputs - AGGRESSIVE CALCULATION
-  let riskScore = 0;
-
-  // Base risk
-  riskScore += 20;
-
-  // No CRM = +25 risk (Critical)
+  let riskScore = 20;
   if (data.hasCRM === 1) riskScore += 25;
   if (data.hasCRM === 3) riskScore += 15;
-
-  // No sales team = +20 risk
   if (data.hasSalesTeam === 1) riskScore += 20;
   if (data.hasSalesTeam === 3) riskScore += 15;
-
-  // Poor social media = +15 risk
   if (data.socialMedia >= 2) riskScore += 15;
-
-  // No advertising = +25 risk
   if (data.adPlatform === 4) riskScore += 25;
-
-  // Low conversion = +20 risk
   if (data.conversionRate <= 1) riskScore += 20;
-  if (data.conversionRate === 5) riskScore += 25; // Don't know is worse
-
-  // Budget inefficiencies
+  if (data.conversionRate === 5) riskScore += 25;
   if (metrics.estimatedBudget > metrics.targetClients * 50) riskScore += 15;
-
-  // Cap at 95
   riskScore = Math.min(95, riskScore);
 
   const riskLevel: AIAnalysisResult["riskLevel"] =
     riskScore <= 40 ? "medium" : riskScore <= 70 ? "high" : "critical";
 
-  // Generate recommendations
   const recommendations: string[] = [];
-
   if (data.hasCRM >= 1) recommendations.push(t.rec.crm);
   if (data.hasSalesTeam >= 1) recommendations.push(t.rec.sales);
   if (data.socialMedia >= 2) recommendations.push(t.rec.social);
   if (data.adPlatform === 4) recommendations.push(t.rec.ads);
   if (data.conversionRate <= 1 || data.conversionRate === 5) recommendations.push(t.rec.cro);
-
   if (metrics.potentialLosses > 0) {
     const lossStr = `$${metrics.potentialLosses.toLocaleString()}`;
     const yearlyLossStr = `$${(metrics.potentialLosses * 12).toLocaleString()}`;
@@ -131,28 +128,24 @@ export async function generateAIAnalysis(
       t.rec.loss.replace("${loss}", lossStr).replace("${yearlyLoss}", yearlyLossStr)
     );
   }
+  if (recommendations.length === 0) recommendations.push(t.rec.scale);
 
-  if (recommendations.length === 0) {
-    recommendations.push(t.rec.scale);
-  }
-
-  // Generate growth strategy
-  const strategy: string[] = [t.strategy.p1, t.strategy.p2, t.strategy.p3, t.strategy.p4];
+  const strategy = [t.strategy.p1, t.strategy.p2, t.strategy.p3, t.strategy.p4];
 
   const summary = t.summary
-    .replace("{niche}", t.niche[data.niche] || data.niche.toString())
+    .replace("{niche}", t.niche[data.niche] || String(data.niche))
     .replace("{leads}", metrics.requiredLeads.toString())
     .replace(
       "{roi}",
-      isNaN(metrics.estimatedBudget) || metrics.estimatedBudget === 0 
-        ? "0" 
+      isNaN(metrics.estimatedBudget) || metrics.estimatedBudget === 0
+        ? "0"
         : ((metrics.targetClients * (metrics.estimatedBudget / Math.max(1, metrics.requiredLeads)) * 3) / metrics.estimatedBudget).toFixed(1)
     );
 
   return {
     riskLevel,
     riskScore,
-    recommendations: recommendations.slice(0, 5), // Top 5 critical issues
+    recommendations: recommendations.slice(0, 5),
     strategy,
     summary,
   };

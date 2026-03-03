@@ -5,8 +5,8 @@ import { useLocale } from "next-intl";
 import { motion } from "framer-motion";
 
 const locales = [
-  { code: "en", label: "EN" },
   { code: "ru", label: "RU" },
+  { code: "uz", label: "UZ" },
   { code: "kg", label: "KG" },
 ];
 
